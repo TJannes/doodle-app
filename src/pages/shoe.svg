@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <g fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- sole -->
+    <path d="M85 540 H1080 Q1140 540 1140 590 Q1140 640 1080 640 H130 Q70 640 70 590 Q70 545 85 540 Z"/>
+    <path d="M150 590 H1070" stroke-dasharray="40 30"/>
+    <!-- tongue -->
+    <path d="M335 205 C345 110 480 100 495 170 C505 220 485 270 470 310"/>
+    <!-- upper -->
+    <path d="M100 540 L110 260 Q115 200 175 200 L330 200 Q370 200 395 235 L560 400 Q600 432 680 435 L880 445 Q1080 460 1112 540"/>
+    <!-- heel -->
+    <path d="M112 360 Q222 370 242 540"/>
+    <!-- toe cap -->
+    <path d="M905 447 Q860 495 895 540"/>
+    <!-- stripe -->
+    <path d="M300 485 C440 420 620 420 770 475"/>
+    <!-- laces -->
+    <path d="M440 245 L405 280 M480 285 L445 320 M520 325 L485 360 M560 365 L525 400" stroke-width="14"/>
+    <circle cx="405" cy="280" r="10" fill="#000"/>
+    <circle cx="445" cy="320" r="10" fill="#000"/>
+    <circle cx="485" cy="360" r="10" fill="#000"/>
+    <circle cx="525" cy="400" r="10" fill="#000"/>
+  </g>
+</svg>

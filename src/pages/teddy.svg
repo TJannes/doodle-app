@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs>
+    <!-- Masks hide lines that lie "behind" another body part. -->
+    <mask id="behindHead" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <rect width="1000" height="1000" fill="#fff"/>
+      <circle cx="500" cy="320" r="185" fill="#000"/>
+    </mask>
+    <mask id="behindFeet" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <rect width="1000" height="1000" fill="#fff"/>
+      <circle cx="500" cy="320" r="185" fill="#000"/>
+      <ellipse cx="365" cy="880" rx="100" ry="78" fill="#000"/>
+      <ellipse cx="635" cy="880" rx="100" ry="78" fill="#000"/>
+    </mask>
+    <mask id="behindBody" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <rect width="1000" height="1000" fill="#fff"/>
+      <circle cx="500" cy="320" r="185" fill="#000"/>
+      <ellipse cx="365" cy="880" rx="100" ry="78" fill="#000"/>
+      <ellipse cx="635" cy="880" rx="100" ry="78" fill="#000"/>
+      <ellipse cx="500" cy="690" rx="205" ry="225" fill="#000"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ears -->
+    <g mask="url(#behindHead)">
+      <circle cx="335" cy="165" r="80"/>
+      <circle cx="665" cy="165" r="80"/>
+      <circle cx="335" cy="165" r="40"/>
+      <circle cx="665" cy="165" r="40"/>
+    </g>
+    <!-- arms -->
+    <g mask="url(#behindBody)">
+      <ellipse cx="300" cy="610" rx="70" ry="135" transform="rotate(40 300 610)"/>
+      <ellipse cx="700" cy="610" rx="70" ry="135" transform="rotate(-40 700 610)"/>
+    </g>
+    <!-- body and belly -->
+    <g mask="url(#behindFeet)">
+      <ellipse cx="500" cy="690" rx="205" ry="225"/>
+      <ellipse cx="500" cy="710" rx="115" ry="135"/>
+    </g>
+    <!-- feet -->
+    <ellipse cx="365" cy="880" rx="100" ry="78"/>
+    <ellipse cx="635" cy="880" rx="100" ry="78"/>
+    <ellipse cx="365" cy="890" rx="50" ry="40"/>
+    <ellipse cx="635" cy="890" rx="50" ry="40"/>
+    <!-- head -->
+    <circle cx="500" cy="320" r="185"/>
+    <ellipse cx="500" cy="395" rx="88" ry="68"/>
+    <!-- face -->
+    <ellipse cx="500" cy="365" rx="30" ry="22" fill="#000"/>
+    <circle cx="430" cy="285" r="17" fill="#000"/>
+    <circle cx="570" cy="285" r="17" fill="#000"/>
+    <path d="M500 387 V417 M500 417 Q470 442 446 420 M500 417 Q530 442 554 420"/>
+  </g>
+</svg>

@@ -1,0 +1,219 @@
+:root {
+  --bg: #e9e6e1;
+  --button: #ffffff;
+  --ink: #222222;
+  --ring: #222222;
+  --gap: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  /* No selecting, zooming or context menus on touch. */
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+
+#app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--gap);
+  padding: var(--gap);
+}
+
+/* Left-handed: colours on the right, tools on the left (mirrored). */
+#app.left-handed #colors { order: 3; }
+#app.left-handed #stage-wrap { order: 2; }
+#app.left-handed #tools { order: 1; }
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 0;
+  /* Room so the ring around the selected button is not clipped. */
+  padding: 8px 14px;
+  box-sizing: content-box;
+}
+
+/* ---------- Colours ---------- */
+#colors {
+  justify-content: space-between;
+  width: clamp(64px, 7vw, 100px);
+}
+
+.swatch {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  border-radius: 18px;
+  border: 3px solid rgba(0, 0, 0, 0.25);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+/* ---------- Tools ---------- */
+#tools {
+  width: clamp(72px, 8vw, 112px);
+  justify-content: space-between;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tool {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 8%;
+  border-radius: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  background: var(--button);
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms;
+}
+
+.tool svg, .tool img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.tool:active { transform: scale(0.94); }
+.tool[disabled] { opacity: 0.35; }
+
+.tool.stop {
+  background: #e53935;
+  border-color: #b71c1c;
+}
+
+.page img { object-fit: contain; }
+
+/* Selected colour / tool / colouring page: thick ring and slightly larger. */
+.selected {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 5px #fff, 0 0 0 11px var(--ring);
+  position: relative;
+  z-index: 1;
+}
+
+/* Inconspicuous button for the caregiver */
+#btn-settings {
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  opacity: 0.45;
+}
+#btn-settings svg { width: 100%; height: 100%; }
+#btn-settings .ring {
+  stroke-dasharray: 277;
+  stroke-dashoffset: 277;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+#btn-settings.holding { opacity: 1; }
+#btn-settings.holding .ring {
+  transition: stroke-dashoffset 3s linear;
+  stroke-dashoffset: 0;
+}
+
+/* ---------- Drawing sheet ---------- */
+#stage-wrap {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+}
+
+#stage {
+  position: relative;
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  touch-action: none;
+}
+
+#stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#lines { pointer-events: none; }
+
+/* Short "new sheet" animation so the person sees something happened. */
+#stage.fresh { animation: fresh 450ms ease-out; }
+@keyframes fresh {
+  from { transform: scale(0.96); opacity: 0.3; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ---------- Settings ---------- */
+#settings {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: text;
+  -webkit-user-select: text;
+  touch-action: auto;
+}
+#settings[hidden] { display: none; }
+
+.panel {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  width: min(640px, 92vw);
+  max-height: 92vh;
+  overflow: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+.panel h1 { font-size: 24px; margin: 0 0 12px; }
+.panel h2 { font-size: 17px; margin: 18px 0 8px; }
+.panel p { margin: 6px 0; }
+.panel .path {
+  font-family: Consolas, monospace;
+  background: #f3f3f3;
+  padding: 8px 10px;
+  border-radius: 8px;
+  word-break: break-all;
+}
+.panel .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 8px; }
+.panel .row.end { justify-content: flex-end; margin-top: 22px; }
+.panel button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+  background: #f7f7f7;
+  font-size: 16px;
+}
+.panel button.primary { background: #1e88e5; border-color: #1e88e5; color: #fff; }
+.panel .check { display: flex; gap: 8px; align-items: center; font-size: 16px; margin: 6px 16px 6px 0; }
+.panel .check input { width: 22px; height: 22px; }
+.panel .muted { color: #666; }
+.panel .error { color: #b71c1c; }

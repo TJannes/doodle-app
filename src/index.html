@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Doodle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Colours: always all visible -->
+    <nav id="colors" data-i18n-aria="nav.colors"></nav>
+
+    <!-- Drawing sheet -->
+    <main id="stage-wrap">
+      <div id="stage">
+        <canvas id="paint"></canvas>
+        <canvas id="lines"></canvas>
+      </div>
+    </main>
+
+    <!-- Tools and colouring pages -->
+    <nav id="tools" data-i18n-aria="nav.tools">
+      <button id="btn-stop" class="tool stop" data-i18n-aria="tool.stop">
+        <svg viewBox="0 0 100 100"><path d="M30 30 L70 70 M70 30 L30 70" stroke="#fff" stroke-width="13" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="group">
+        <button id="btn-eraser" class="tool" data-i18n-aria="tool.eraser">
+          <svg viewBox="0 0 100 100">
+            <g transform="rotate(-35 50 50)">
+              <rect x="18" y="34" width="64" height="34" rx="7" fill="#f48fb1" stroke="#222" stroke-width="5"/>
+              <rect x="18" y="34" width="24" height="34" rx="7" fill="#90caf9" stroke="#222" stroke-width="5"/>
+            </g>
+            <path d="M22 86 H80" stroke="#222" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10"/>
+          </svg>
+        </button>
+        <button id="btn-undo" class="tool" data-i18n-aria="tool.undo">
+          <svg viewBox="0 0 100 100">
+            <path d="M36 30 H62 A20 20 0 0 1 62 74 H34" fill="none" stroke="#1e88e5" stroke-width="11" stroke-linecap="round"/>
+            <path d="M40 14 L20 30 L40 46 Z" fill="#1e88e5" stroke="#1e88e5" stroke-width="6" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button id="btn-clear" class="tool" data-i18n-aria="tool.clear">
+          <svg viewBox="0 0 100 100">
+            <path d="M24 30 H76 L71 86 H29 Z" fill="#cfd8dc" stroke="#222" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M18 24 H82 M40 24 V16 H60 V24" fill="none" stroke="#222" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M40 40 V76 M50 40 V76 M60 40 V76" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="group" id="pages"></div>
+
+      <button id="btn-settings" data-i18n-aria="tool.settings">
+        <svg viewBox="0 0 100 100">
+          <circle class="ring" cx="50" cy="50" r="44" fill="none" stroke="#1e88e5" stroke-width="8"/>
+          <path fill="#999" d="M50 30a20 20 0 1 0 0.1 0z M50 41a9 9 0 1 1 -0.1 0z" fill-rule="evenodd"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Caregiver settings -->
+  <div id="settings" hidden>
+    <div class="panel" role="dialog" aria-labelledby="settings-title">
+      <h1 id="settings-title" data-i18n="settings.title"></h1>
+
+      <section>
+        <h2 data-i18n="settings.folder"></h2>
+        <p id="set-dir" class="path"></p>
+        <div class="row">
+          <button id="set-dir-change" data-i18n="settings.folder.change"></button>
+          <button id="set-dir-open" data-i18n="settings.folder.open"></button>
+          <button id="set-dir-default" data-i18n="settings.folder.default"></button>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-i18n="settings.drawing"></h2>
+        <label class="check"><input type="checkbox" id="set-finger"> <span data-i18n="settings.finger"></span></label>
+        <div class="row">
+          <label class="check"><input type="radio" name="hand" value="right" id="set-right"> <span data-i18n="settings.rightHanded"></span></label>
+          <label class="check"><input type="radio" name="hand" value="left" id="set-left"> <span data-i18n="settings.leftHanded"></span></label>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-i18n="settings.language"></h2>
+        <div class="row">
+          <label class="check"><input type="radio" name="language" value="auto"> <span id="set-lang-auto"></span></label>
+          <label class="check"><input type="radio" name="language" value="en"> English</label>
+          <label class="check"><input type="radio" name="language" value="nl"> Nederlands</label>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-i18n="settings.updates"></h2>
+        <p><span data-i18n="settings.version"></span> <strong id="set-version">–</strong></p>
+        <div class="row">
+          <button id="set-update-check" data-i18n="settings.update.check"></button>
+          <button id="set-update-install" hidden></button>
+        </div>
+        <p id="set-update-status" class="muted"></p>
+      </section>
+
+      <p id="set-error" class="error" hidden></p>
+
+      <div class="row end">
+        <button id="set-close" class="primary" data-i18n="settings.close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

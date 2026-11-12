@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="700" viewBox="0 0 1400 700">
+  <g fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- body -->
+    <path d="M330 120
+             C450 120 490 180 540 195
+             C580 207 600 168 650 165
+             C760 160 810 260 810 350
+             C810 440 760 540 650 535
+             C600 532 580 493 540 505
+             C490 520 450 580 330 580
+             C180 580 90 470 90 350
+             C90 230 180 120 330 120 Z"/>
+    <!-- sound hole -->
+    <circle cx="600" cy="350" r="68"/>
+    <circle cx="600" cy="350" r="92"/>
+    <!-- bridge -->
+    <rect x="215" y="310" width="80" height="80" rx="14"/>
+    <!-- neck -->
+    <path d="M810 322 H1230 V378 H810"/>
+    <!-- frets -->
+    <path d="M870 322 V378 M925 322 V378 M976 322 V378 M1024 322 V378 M1068 322 V378 M1110 322 V378 M1150 322 V378 M1190 322 V378"/>
+    <!-- headstock -->
+    <path d="M1230 305 L1360 285 Q1385 350 1360 415 L1230 395 Z"/>
+    <!-- tuning pegs -->
+    <circle cx="1270" cy="268" r="18"/>
+    <circle cx="1330" cy="259" r="18"/>
+    <circle cx="1270" cy="432" r="18"/>
+    <circle cx="1330" cy="441" r="18"/>
+    <path d="M1270 286 V299 M1330 277 V290 M1270 414 V401 M1330 423 V410"/>
+  </g>
+  <!-- strings (thinner) -->
+  <g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round">
+    <path d="M255 332 L1300 316 M255 343 L1300 333 M255 354 L1300 350 M255 365 L1300 367 M255 376 L1300 384"/>
+  </g>
+</svg>
