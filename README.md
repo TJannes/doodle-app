@@ -3,6 +3,8 @@
 A simple drawing app for Windows 11, made for the Surface Pro 11 with Surface Pen,
 for a person with an intellectual disability. Everything is one tap away – no menus.
 
+![Doodle with the teddy bear colouring page](docs/screenshot.png)
+
 - Blank white sheet, 10 colours always visible, eraser, undo, clear.
 - Three colouring pages (teddy bear, guitar, shoe) with one tap.
 - Drawings are saved automatically as PNG (when clearing, when picking a colouring page and when stopping).

@@ -1,7 +1,7 @@
 {
   "name": "doodle",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "tauri": "tauri",
     "preview": "python3 -m http.server 8080 --directory src"

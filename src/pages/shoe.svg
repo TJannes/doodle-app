@@ -1,23 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <!-- Hides the upper's lines that lie behind the two straps. -->
+    <mask id="behindStraps" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="800">
+      <rect width="1200" height="800" fill="#fff"/>
+      <rect x="470" y="168" width="215" height="105" rx="28" transform="rotate(7 470 168)" fill="#000"/>
+      <rect x="372" y="312" width="240" height="96" rx="28" transform="rotate(36 372 312)" fill="#000"/>
+    </mask>
+  </defs>
   <g fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
     <!-- sole -->
-    <path d="M85 540 H1080 Q1140 540 1140 590 Q1140 640 1080 640 H130 Q70 640 70 590 Q70 545 85 540 Z"/>
-    <path d="M150 590 H1070" stroke-dasharray="40 30"/>
-    <!-- tongue -->
-    <path d="M335 205 C345 110 480 100 495 170 C505 220 485 270 470 310"/>
-    <!-- upper -->
-    <path d="M100 540 L110 260 Q115 200 175 200 L330 200 Q370 200 395 235 L560 400 Q600 432 680 435 L880 445 Q1080 460 1112 540"/>
-    <!-- heel -->
-    <path d="M112 360 Q222 370 242 540"/>
-    <!-- toe cap -->
-    <path d="M905 447 Q860 495 895 540"/>
-    <!-- stripe -->
-    <path d="M300 485 C440 420 620 420 770 475"/>
-    <!-- laces -->
-    <path d="M440 245 L405 280 M480 285 L445 320 M520 325 L485 360 M560 365 L525 400" stroke-width="14"/>
-    <circle cx="405" cy="280" r="10" fill="#000"/>
-    <circle cx="445" cy="320" r="10" fill="#000"/>
-    <circle cx="485" cy="360" r="10" fill="#000"/>
-    <circle cx="525" cy="400" r="10" fill="#000"/>
+    <path d="M112 600 L1100 600 L1100 665 Q1100 705 1060 705 L170 705 Q100 705 100 650 Q100 615 112 600 Z"/>
+    <path d="M135 632 H1078" stroke-width="5" stroke-dasharray="22 16"/>
+
+    <g mask="url(#behindStraps)">
+      <!-- lining showing at the top -->
+      <path d="M546 128 Q550 98 590 96 L650 96 Q674 98 674 128"/>
+      <!-- upper -->
+      <path d="M112 600 C100 540 135 492 200 482 C280 470 340 420 380 380 L470 260 L520 150 Q528 128 550 128 L1080 128 Q1098 130 1098 148 L1100 600"/>
+      <!-- collar trim -->
+      <path d="M514 156 L1098 156"/>
+      <!-- toe cap trim -->
+      <path d="M155 506 C230 520 300 560 334 600"/>
+      <!-- vamp trim -->
+      <path d="M332 428 C410 510 520 540 600 562 C660 580 700 594 734 600"/>
+      <!-- heel trim -->
+      <path d="M1098 372 C1010 380 940 400 925 450 C912 500 908 560 906 600"/>
+    </g>
+
+    <!-- straps (hook-and-loop) -->
+    <rect x="470" y="168" width="215" height="105" rx="28" transform="rotate(7 470 168)"/>
+    <rect x="372" y="312" width="240" height="96" rx="28" transform="rotate(36 372 312)"/>
+  </g>
+  <!-- stitching on the straps (thinner) -->
+  <g fill="none" stroke="#000" stroke-width="4" stroke-dasharray="14 10" stroke-linecap="round">
+    <rect x="486" y="184" width="183" height="73" rx="16" transform="rotate(7 470 168)"/>
+    <rect x="388" y="328" width="208" height="64" rx="16" transform="rotate(36 372 312)"/>
   </g>
 </svg>
