@@ -31,7 +31,10 @@ const PAGES = ['teddy', 'guitar', 'shoe'];
 const BRUSH_SIZE = 12;        // CSS pixels at medium pressure
 const ERASER_SIZE = 56;       // eraser diameter
 const PAGE_MARGIN = 0.05;     // white space around a colouring page
-const PALM_SIZE = 40;         // touches larger than this are a palm
+// Touches wider than this (CSS px) are treated as a palm. On a Surface Pro 11
+// at 200% scaling 1 CSS px ≈ 0.19 mm, so 110 px ≈ 2 cm: a fingertip (8–12 mm)
+// stays well below it, a resting palm is far above it.
+const PALM_SIZE = 110;
 const PEN_GRACE_MS = 1000;    // ignore fingers while the pen is nearby
 const SESSION_SAVE_DELAY = 1200;
 const SETTINGS_HOLD_MS = 3000;
@@ -133,6 +136,7 @@ let busy = false;         // saving / starting a new sheet
 let closing = false;
 let sessionTimer = null;
 let lastError = null;     // { where, error } – shown to the caregiver
+let lastTouch = null;     // { width, height, verdict } – shown to the caregiver
 const pageImages = {};
 
 /* ---------------------------------------------------------------------------
@@ -326,10 +330,17 @@ function isPalm(e) {
   return Math.max(e.width || 0, e.height || 0) > PALM_SIZE;
 }
 
-function touchAllowed(e) {
-  if (!state.settings.fingerDrawing) return false;
-  if (performance.now() - lastPenTime < PEN_GRACE_MS) return false;
-  return !isPalm(e);
+/** Why a touch was (not) drawn: 'drawn', 'disabled', 'penNearby' or 'palm'. */
+function touchVerdict(e) {
+  if (!state.settings.fingerDrawing) return 'disabled';
+  if (performance.now() - lastPenTime < PEN_GRACE_MS) return 'penNearby';
+  if (isPalm(e)) return 'palm';
+  return 'drawn';
+}
+
+/** Remember the last finger touch, shown to the caregiver for diagnosis. */
+function recordTouch(e, verdict) {
+  lastTouch = { width: Math.round(e.width || 0), height: Math.round(e.height || 0), verdict };
 }
 
 function cancelActive() {
@@ -348,7 +359,11 @@ stage.addEventListener('pointerdown', (e) => {
     if (e.pointerType === 'pen' && active.pointerType === 'touch') cancelActive();
     else return;
   }
-  if (e.pointerType === 'touch' && !touchAllowed(e)) return;
+  if (e.pointerType === 'touch') {
+    const verdict = touchVerdict(e);
+    recordTouch(e, verdict);
+    if (verdict !== 'drawn') return;
+  }
   if (e.pointerType === 'mouse' && e.button !== 0) return;
 
   stageRect = stage.getBoundingClientRect();
@@ -365,7 +380,7 @@ stage.addEventListener('pointerdown', (e) => {
 stage.addEventListener('pointermove', (e) => {
   if (e.pointerType === 'pen') lastPenTime = performance.now();
   if (!active || e.pointerId !== active.pointerId) return;
-  if (active.pointerType === 'touch' && isPalm(e)) { cancelActive(); return; }
+  if (active.pointerType === 'touch' && isPalm(e)) { recordTouch(e, 'palm'); cancelActive(); return; }
 
   const events = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
   const list = events.length ? events : [e];
@@ -564,6 +579,13 @@ function renderSettingsPanel() {
   $('#set-lang-auto').textContent = t('settings.language.auto', {
     lang: LANGUAGE_NAMES[s.systemLanguage] || LANGUAGE_NAMES.en,
   });
+  $('#set-touch').textContent = lastTouch
+    ? t('settings.touch.last', {
+      width: lastTouch.width,
+      height: lastTouch.height,
+      verdict: t(`settings.touch.${lastTouch.verdict}`),
+    })
+    : t('settings.touch.none');
   const errorEl = $('#set-error');
   errorEl.hidden = !lastError;
   errorEl.textContent = lastError
